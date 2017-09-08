@@ -1,0 +1,33 @@
+# Docker and Docker Compose based environment for Drupal.
+# See https://github.com/blinkreaction/docker-fig-drupal for more information and documentation.
+
+version: "2"
+
+services:
+  
+  # list of other container services like mysql, memcache, should be defined here as per your projects requirment
+
+  # Web node
+  web:
+    build: .
+    depends_on:
+      - mariadb
+      - memcached
+    links:
+      - mariadb
+      - memcached
+    dns_search: myproject.local
+    environment:
+      - ENVIRONMENT=local
+      - PORT=80
+      
+    hostname: drupal-web
+    ports:
+      - "80:80"
+      - "2222:22"
+    volumes:
+      #Project folder mapping
+      - "./:/app" #this piece of content is being overridden with the configuration provided in docker-compose-dev.yml and magic begins from here
+
+networks:
+  default:
