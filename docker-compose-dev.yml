@@ -1,13 +1,35 @@
 version: "2"
-services:
-  web:
-    #volumes_from:
-    #  - container:docker-mac-sync:rw # will be mounted on /var/www
-    volumes:
-      - docker-mac-sync:/app:rw
 
+# copy all the container defination here, you will be running your containe using
+# this file (docker-compose-dev.yml) and additional changes for docker-sync will
+# be done here, if you look at the docker-sync.yml you will notice that docker-sync
+# runs 'docker-compose-dev.yml' NOT 'docker-compose.yml'
+# reason behind this is to keep your original docker-compose.yml untouched so you can freely 
+# update the local version of docker-compose which is docker-compose-dev.yml
+
+# Very Important change after you copy the original docker-compose.yml here ... 
+# look at the 'web' container and update the volumes section as below
+
+# starting section content copied from docker-compose.yml
+#..
+#..
+#..
+#..
+
+#services:
+  #web:
+    #volumes:
+    #  - docker-mac-sync:/app
+
+
+# END section content copied from docker-compose.yml
+
+
+# TO BE ADDED TO YOUR FILE
+# this is specific to docker-sync to create a docker sync volumn which can be used to sync
+# this config should be added at the bottom of the this file.
 volumes:
-    docker-mac-sync:
-        external: true
+  docker-mac-sync: # THIS IS THE NAME OF THE VOLUME WHICH IS MAPPED IN TWO PLACES 1. WEB CONTAINER'S VOLUME SECTION AND 2. docker-sync.yml file
+    external: true
 
   

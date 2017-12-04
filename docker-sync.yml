@@ -1,14 +1,21 @@
 version: "2"
 
 options:
-  compose-file-path: './docker-compose.yml'
-  compose-dev-file-path: './docker-compose-dev.yml'
+  #compose-file-path: './docker-compose.yml'
+  #compose-dev-file-path: './docker-compose-dev.yml'
+  compose-file-path: './docker-compose-dev.yml'
   verbose: true # make the whole sync verbose
+  # you cannot just use "some unison" container, you entrypoint needs features, check the Dockerfiles
+  unison_image: 'eugenmayer/unison'
+  cli_mode: 'auto'
+  # optional, maximum number of attempts for unison waiting for the success exit status. The default is 5 attempts (1-second sleep for each attempt). Only used in unison.
+  max_attempt: 5
 syncs:
   docker-mac-sync: #tip: add -sync and you keep consistent names as a convention
     src: './'
     sync_host_ip: 'localhost'
-    sync_host_port: 10872
-    sync_userid: '1001'
+    #sync_host_port: 10872
+    #sync_userid: '1001'
     notify_terminal: true
-    watch_args: '-v' # make watching verbose      
+    watch_args: '-v' # make watching verbose
+    sync_excludes: [ '.git', '.idea', 'node_modules' ] 
