@@ -6,7 +6,7 @@ you can take this a placeholder and the other files which we will talk later is 
 
 docker-compose-dev.yml
 - this file is meant for local development not for production so any configuration in this file are 
-expected to affect only local environment to have effect on local
+expected to affect only local environment.
 
 docker-sync.yml
 - this file contains configuration to sync container with the host system
